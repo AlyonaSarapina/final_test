@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		
+
+			var position = ['Junior developer', 'Middle developer', 'Senior developer', 'Junior QA', 'Middle QA', 'Senior QA', 'Project manager'];
+			var names = [];
+			var objSize = position.length;
+
+			function getNames() {
+
+				for (var i = 0; i < objSize; i++) {
+					var name = prompt('Введите имя');
+					names[i] = name;
+				};
+
+				return names;
+			};
+
+			getNames();
+
+			var team = new Object();
+
+			function createTeam() {
+
+				for (var i = 0; i < position.length; i++) {
+					
+					var customer = new Object();
+
+					customer.name = names[i];
+					customer.position = position[i];
+
+					team[i] = customer;
+				}
+
+				return team;
+			};
+			
+			createTeam();
+
+			function setSalary() {
+
+				function getRandomArbitrary(min, max) {
+
+					return Math.floor(Math.random() * (max - min)) + min;
+				}
+
+				for (key in team) {
+
+
+					if ( team[key]['position'].indexOf('Junior') == 0 ) {
+
+						team[key]['salary'] = getRandomArbitrary(500, 1000);
+						
+					} else if ( team[key]['position'].indexOf('Middle') == 0 ) {
+
+						team[key]['salary'] = getRandomArbitrary(1500, 2000);
+
+					} else if ( team[key]['position'].indexOf('Senior') == 0 ) {
+
+						team[key]['salary'] = getRandomArbitrary(2500, 3000);
+
+					} else {
+						team[key]['salary'] = getRandomArbitrary(4000, 4500);
+					}
+					
+				}
+			};
+
+			setSalary();
+
+
+			function tellAboutYourSelf() {
+
+				for (key in team) {
+
+					team[key]['tellAboutYourSelf'] = function() {
+
+						return document.write('Меня зовут ' + this.name + ' и я - ' + this.position + '. Я зарабатываю ' + this.salary + '$.</br>')
+					}
+				}
+			};
+
+			tellAboutYourSelf();
+
+			team['showTeam'] = function() {
+
+				for (key in team) {
+
+					var value = team[key];
+
+					if ( typeof value == "object" ) {
+
+						var name = this[key].name,
+							position = this[key].position,
+							salary = this[key].salary;
+
+						document.write( name + ' - ' + position + '. Зарплата - ' + salary + '$.</br>');
+
+					}
+
+				}
+
+			};
+
+			team.showTeam();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
